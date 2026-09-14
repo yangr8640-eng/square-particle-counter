@@ -1,0 +1,9 @@
+v4 local particle filter
+Model: square-core-filter-4.0 / ExtraTreesClassifier
+Artifact SHA256: 2c317e7542b8460e3df3a684e4ba9a8ce7e2c734b6b6bb950f97cc06349b6ab3
+Development evaluation: 57 original-image groups; outer and inner folds kept separate; thresholds selected from inner training folds. Model and policy candidates were selected on this development dataset, so this is not an independent external test.
+v3 -> v4 reference-set precision: 0.941202 -> 0.952594
+v3 -> v4 reference-set recall: 0.999203 -> 0.998966
+v3 -> v4 image count MAE: 50.4035 -> 39.8947
+Correct automatic removals: 590; false removals: 11.
+There is no per-image guarantee. Removed model candidates remain recoverable in the review page. Uploaded images are never automatically used as training labels.

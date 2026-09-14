@@ -1,0 +1,2 @@
+This distribution contains a CPython runtime from Astral python-build-standalone, plus NumPy, SciPy, OpenCV, scikit-image, scikit-learn, Pillow, Flask, Waitress and their dependencies. Component license and copyright notices are retained in runtime/ and the packages' .dist-info directories. The application uses these components locally; there is no hosted service.
+Runtime project: https://github.com/astral-sh/python-build-standalone

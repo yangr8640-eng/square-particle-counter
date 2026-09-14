@@ -1,0 +1,3 @@
+aaf1fb99b02714295fc3b004ee416ce2dc8d82466a6110ae7f2006a680fa4f9b  ParticleCounter-Windows-x64-v4.zip
+2cb7d8fea3f2af08155a56e3fa0c585da9c7b90768f6055e748168064fb26d3f  ParticleCounter-macOS-AppleSilicon-v4.zip
+348708a388e15d3eb240368fb8d15107747ac219878b30e28b6307e0e60ed42e  ParticleCounter-macOS-Intel-v4.zip

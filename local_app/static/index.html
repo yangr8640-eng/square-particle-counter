@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>颗粒计数 · 本地工作台</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#20302d;background:#f4f6f3;font-synthesis:none;--green:#226c52;--line:#dce4dd;--muted:#697771;--orange:#bc701a;--danger:#a63c37}
+    *{box-sizing:border-box}body{margin:0}button,input,a{-webkit-tap-highlight-color:transparent}button,input{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:default;opacity:.48}a{color:var(--green)}button:focus-visible,a:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #61a88c;outline-offset:4px}button:focus:not(:focus-visible){outline:none}[hidden]{display:none!important}
+    .candidate-detail{display:flex;flex-wrap:wrap;gap:7px 15px;padding-top:12px;margin-top:14px;border-top:1px solid #edf0ea;font-size:10px;line-height:1.7;color:#778573;font-variant-numeric:tabular-nums}.candidate-detail span{white-space:nowrap}
+    .shell{max-width:1220px;margin:auto;padding:0 36px 40px}.topbar{min-height:98px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:13px;align-items:center}.brand-mark{width:42px;height:42px;border-radius:12px;background:#e1eee4;display:grid;grid-template-columns:repeat(2,8px);gap:5px;place-content:center;transform:rotate(-3deg)}.brand-mark i{height:8px;background:var(--green);border-radius:1px}.brand-title{font-weight:700;font-size:18px;letter-spacing:.025em}.brand-caption{font-size:11px;letter-spacing:.16em;margin-top:4px;color:var(--muted)}.local-pill{display:flex;align-items:center;gap:7px;font-size:12px;color:#466153;border:1px solid #d3dfd5;border-radius:30px;padding:8px 12px;white-space:nowrap}.local-pill:before{content:"";width:6px;height:6px;background:#5c9f69;border-radius:50%}.hero{padding:44px 0 29px}.eyebrow{color:var(--green);font-size:11px;letter-spacing:.14em;font-weight:600;margin:0 0 13px}.hero h1{font-size:clamp(27px,4vw,36px);line-height:1.35;letter-spacing:-.035em;margin:0;font-weight:650}.hero p{color:var(--muted);font-size:14px;line-height:1.8;margin:12px 0 0}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 276px;gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:26px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}.section-head h2{font-size:16px;letter-spacing:-.02em;margin:0}.step{color:#98a79f;font-size:12px;font-variant-numeric:tabular-nums;margin-right:10px}.small{font-size:12px;color:var(--muted);line-height:1.7}.dropzone{border:1.5px dashed #b9cec0;background:#f8fbf7;border-radius:12px;min-height:215px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:27px 16px;transition:background .15s,border-color .15s}.dropzone.dragging{background:#e3f1e5;border-color:var(--green)}.dropzone.busy{opacity:.65}.upload-icon{color:var(--green);margin-bottom:15px}.drop-title{font-size:15px;font-weight:600;margin:0 0 8px}.drop-note{font-size:12px;color:var(--muted);margin:0 0 17px;line-height:1.6}.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:550;text-decoration:none;border:1px solid var(--line);background:#fff;color:#2c4437;line-height:1.35}.button:hover:not(:disabled){background:#f3f8f2;border-color:#bbcebf}.button.primary{background:var(--green);border-color:var(--green);color:#fff}.button.primary:hover:not(:disabled){background:#19583f}.button svg{flex:none}.button.quiet{min-height:32px;background:none;border:0;color:var(--muted);padding:6px 9px;font-weight:400}.button.quiet:hover:not(:disabled){background:#f1f5ef;color:#223e2d}.button.large{min-height:44px;padding-left:21px;padding-right:21px}.button[aria-disabled="true"]{opacity:.5;pointer-events:none}.upload-foot{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:18px}.privacy-note{margin:17px 0 0;display:flex;align-items:flex-start;gap:6px;font-size:11px;line-height:1.7;color:#7a877f}.privacy-note svg{margin-top:2px;flex:none}.file-list{list-style:none;padding:0;margin:19px 0 0;max-height:258px;overflow:auto}.file-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #edf0ec}.file-symbol{display:grid;place-items:center;flex:none;width:32px;height:36px;border-radius:6px;background:#eef4ed;color:#769481;font-size:9px;text-transform:uppercase}.file-detail{min-width:0;flex:1}.file-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;margin:0}.file-size{font-size:10px;color:#8a958f;margin:4px 0 0}.remove-file{border:0;background:transparent;color:#819087;width:32px;height:32px;font-size:21px;border-radius:5px}.remove-file:hover{color:var(--danger);background:#fcf0ee}.queue-summary{color:#64746b;font-size:12px;line-height:1.6}.side-panel{padding:24px}.side-label{font-size:11px;color:#809087;margin:0 0 10px}.model-name{font-size:16px;font-weight:650;line-height:1.5;overflow-wrap:anywhere;margin:0}.model-desc{font-size:12px;color:var(--muted);line-height:1.8;margin:9px 0 0}.divider{height:1px;background:#e8ede7;margin:22px 0}.workflow{list-style:none;padding:0;margin:0;display:grid;gap:19px}.workflow li{display:flex;gap:11px}.workflow-number{flex:none;display:grid;place-items:center;width:23px;height:23px;border:1px solid #d7e4d8;border-radius:50%;font-size:10px;color:#577b60}.workflow-title{font-size:12px;font-weight:600;margin:3px 0 4px}.workflow-desc{font-size:11px;color:var(--muted);line-height:1.7;margin:0}.limits-note{font-size:11px;color:#8a958e;line-height:1.8;margin:21px 1px 0}.notice{display:flex;align-items:center;justify-content:space-between;gap:13px;border:1px solid #e7d6b8;background:#fffbf2;color:#765922;border-radius:9px;padding:12px 15px;font-size:12px;line-height:1.7;margin-bottom:17px}.notice.error{background:#fff4f1;border-color:#efd1c9;color:#983f34}.notice-copy{white-space:pre-line;overflow-wrap:anywhere;flex:1}.notice button{white-space:nowrap}.progress-panel{margin-top:23px;padding:21px 24px}.progress-top{display:flex;gap:16px;align-items:center;justify-content:space-between}.progress-title{font-size:14px;font-weight:600;margin:0}.progress-count{font-size:12px;font-variant-numeric:tabular-nums;color:#687b6e;white-space:nowrap}.progress-track{width:100%;height:5px;overflow:hidden;background:#eaf0e8;border-radius:5px;margin:16px 0 9px}.progress-fill{height:100%;width:0;background:#5b9472;border-radius:5px;transition:width .3s}.progress-fill.indeterminate{width:30%;animation:loading 1.7s ease-in-out infinite}.progress-detail{margin:0;font-size:11px;line-height:1.7;color:#7a887e;overflow-wrap:anywhere}.results{margin-top:34px}.results-header{display:flex;align-items:center;gap:20px;justify-content:space-between;margin-bottom:17px}.results-title h2{font-size:19px;line-height:1.5;margin:0;letter-spacing:-.02em}.results-title p{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.8}.segment{display:flex;flex:none;border:1px solid #d7e1d7;background:#eaf0e8;padding:3px;border-radius:8px}.segment button{border:0;background:transparent;color:#718272;border-radius:5px;font-size:11px;padding:7px 13px;min-height:30px}.segment button[aria-pressed="true"]{background:#fff;color:#285b3b;box-shadow:0 1px 3px #162d1910}.results-toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;background:#e7eee4;border:1px solid #d8e4d5;border-radius:11px;padding:15px 17px;margin-bottom:20px}.results-summary{font-size:12px;color:#5c725c;line-height:1.7}.results-summary strong{font-size:17px;color:#2c4d33;font-variant-numeric:tabular-nums}.result-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.result-actions .button{min-height:35px;font-size:11px;padding:8px 11px}.result-actions .text-link{font-size:11px;color:#466b47;text-underline-offset:3px;padding:6px 4px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}.card{overflow:hidden;padding:0;border-radius:13px;background:#fff;border:1px solid var(--line)}.preview{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;background:#e8eee6;border-bottom:1px solid #e6ebe3;overflow:hidden}.preview img{display:block;max-width:100%;width:100%;height:100%;object-fit:contain}.preview-placeholder{font-size:12px;color:#80907d;text-align:center;padding:20px;line-height:1.8}.image-badge{position:absolute;top:11px;left:11px;background:#fffffff0;color:#4f6550;border-radius:5px;padding:5px 8px;font-size:9px;box-shadow:0 1px 6px #1826140a;pointer-events:none}.card-body{padding:17px}.card-title{font-size:13px;font-weight:600;margin:0 0 15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.card-metrics{display:flex;gap:20px;align-items:flex-end;justify-content:space-between}.count-value{font-size:28px;font-weight:650;letter-spacing:-.035em;line-height:1;margin:0;font-variant-numeric:tabular-nums}.metric-label{font-size:10px;color:#8b9687;margin:7px 0 0}.review-metric{text-align:right}.review-value{font-size:15px;font-weight:550;line-height:1;color:var(--orange);font-variant-numeric:tabular-nums;margin:0}.card-error{color:var(--danger);font-size:12px;line-height:1.8;overflow-wrap:anywhere;margin:0}.card-status{font-size:12px;line-height:1.8;color:var(--muted);margin:0}.empty-results{padding:35px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:12px}.footer{display:flex;justify-content:space-between;gap:20px;padding-top:27px;margin-top:36px;border-top:1px solid var(--line);font-size:10px;line-height:1.8;color:#8c998f}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@keyframes loading{0%{transform:translateX(-110%)}100%{transform:translateX(440%)}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.progress-fill.indeterminate{animation:none;width:45%}}@media(max-width:980px){.workspace{grid-template-columns:minmax(0,1fr) 236px;gap:17px}.panel{padding:22px}.side-panel{padding:21px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.upload-foot{align-items:flex-end}.queue-summary{font-size:11px}}@media(max-width:740px){.shell{padding:0 20px 30px}.topbar{min-height:82px}.hero{padding:31px 0 23px}.hero p{font-size:13px}.workspace{grid-template-columns:1fr}.sidebar{order:2}.side-panel{display:grid;grid-template-columns:minmax(0,1fr) 1.15fr;column-gap:24px;padding:21px}.side-panel .divider{display:none}.workflow{grid-column:2;grid-row:1/5;gap:11px}.model-desc{font-size:11px}.limits-note{margin-top:10px}.results-toolbar{padding:14px}.results-header{align-items:flex-end;gap:12px}.results-title p{max-width:360px}.footer{margin-top:26px}.progress-panel{padding:20px}.brand-title{font-size:16px}.brand-caption{font-size:9px}.local-pill{font-size:10px;padding:7px 10px}.brand-mark{height:37px;width:37px}}@media(max-width:460px){.shell{padding-left:15px;padding-right:15px}.brand{gap:9px}.panel{padding:19px}.dropzone{min-height:205px}.section-head{margin-bottom:17px}.cards{grid-template-columns:1fr}.side-panel{display:block}.side-panel .divider{display:block;margin:17px 0}.workflow{display:flex;flex-wrap:wrap;gap:13px}.workflow li{flex:1 0 100px}.workflow-number{display:none}.workflow-desc{font-size:10px}.model-desc{margin-top:5px}.limits-note{margin-top:12px}.upload-foot{align-items:center}.queue-summary{max-width:130px}.results-header{flex-wrap:wrap}.results-toolbar{gap:12px}.result-actions{gap:7px}.footer{flex-direction:column;gap:4px}.local-pill{padding:6px 8px}.local-pill:before{width:5px;height:5px}.button.large{padding:10px 14px}.notice{align-items:flex-start;flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div><div class="brand-title">颗粒计数</div><div class="brand-caption">PARTICLE COUNTER</div></div></div>
+    <div class="local-pill">本机处理 · 离线可用</div>
+  </header>
+  <main>
+    <div class="hero"><p class="eyebrow">LOCAL WORKSPACE</p><h1>从图片，到可复核的计数。</h1><p>上传颗粒图片，查看自动标注，复核后导出结果。</p></div>
+    <div id="notice" class="notice" role="alert" hidden><span id="notice-copy" class="notice-copy"></span><button type="button" class="button" id="notice-retry" hidden>重试连接</button><button type="button" class="button quiet" id="notice-dismiss" aria-label="关闭提示">×</button></div>
+    <div class="workspace">
+      <section class="panel" aria-labelledby="upload-title">
+        <div class="section-head"><h2 id="upload-title"><span class="step">01</span>上传图片</h2><button class="button quiet" id="clear-files" type="button" disabled>清空列表</button></div>
+        <div class="dropzone" id="dropzone">
+          <svg class="upload-icon" width="31" height="31" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 23H6a4 4 0 0 1-1-7.87A7 7 0 0 1 18.6 10.5a6.5 6.5 0 0 1 7.55 10.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 28V16m-5 5 5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p class="drop-title">把图片拖到这里</p><p class="drop-note" id="format-note">支持 JPG、PNG、TIFF 等图片，可一次选择多张</p>
+          <button class="button" type="button" id="select-files" disabled><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>选择图片</button>
+          <input id="file-input" class="sr-only" type="file" accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.webp" multiple tabindex="-1" aria-label="选择需要计数的图片">
+        </div>
+        <ul id="file-list" class="file-list" aria-label="待处理图片" hidden></ul>
+        <div class="upload-foot"><div id="queue-summary" class="queue-summary" role="status">正在连接本地程序…</div><button class="button primary large" type="button" id="start-job" disabled>开始计数<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="privacy-note"><svg width="12" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m7 1 4.5 1.8v3.7C11.5 9.5 7 12 7 12S2.5 9.5 2.5 6.5V2.8L7 1Z" stroke="currentColor" stroke-width="1.1"/><path d="m4.5 6.1 1.6 1.6 3.3-3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>图片只发送到这台电脑上的程序，无需账户或网络。</p>
+      </section>
+      <aside class="sidebar" aria-label="使用说明">
+        <div class="panel side-panel"><p class="side-label">当前模型</p><p class="model-name" id="model-name">正在读取…</p><p class="model-desc">适用于方形颗粒图片。自动结果可逐点复核与修正。</p><div class="divider"></div><ol class="workflow"><li><span class="workflow-number">1</span><div><p class="workflow-title">选择图片</p><p class="workflow-desc">单张或批量上传。</p></div></li><li><span class="workflow-number">2</span><div><p class="workflow-title">计数与复核</p><p class="workflow-desc">检查标记，修正误检与漏检。</p></div></li><li><span class="workflow-number">3</span><div><p class="workflow-title">保存结果</p><p class="workflow-desc">退出程序会清理临时任务，请先下载结果。</p></div></li></ol></div>
+        <p class="limits-note" id="limits-note"></p>
+      </aside>
+    </div>
+    <section class="panel progress-panel" id="progress-panel" aria-labelledby="progress-title" hidden>
+      <div class="progress-top"><h2 class="progress-title" id="progress-title">等待处理</h2><span class="progress-count" id="progress-count"></span></div>
+      <div class="progress-track" id="progress-track" role="progressbar" aria-label="图片处理进度" aria-valuemin="0" aria-valuemax="100"><div class="progress-fill" id="progress-fill"></div></div><p class="progress-detail" id="progress-detail" role="status"></p>
+    </section>
+    <section class="results" id="results" aria-labelledby="results-title" hidden>
+      <div class="results-header"><div class="results-title"><h2 id="results-title"><span class="step">02</span>计数结果</h2><p>橙点已计入；模型排除项和补漏建议以灰点显示，均未计入，可在复核页恢复。</p></div><div class="segment" role="group" aria-label="结果图片显示方式"><button type="button" id="show-annotated" aria-pressed="true">标注图</button><button type="button" id="show-original" aria-pressed="false">原图</button></div></div>
+      <div class="results-toolbar"><div class="results-summary" id="results-summary"></div><div class="result-actions" id="result-actions"><a class="button primary" id="review-link" target="_blank" rel="noopener" hidden>打开复核页 ↗</a><a class="button" id="zip-link" download hidden>下载全部结果 ZIP</a><a class="text-link" id="csv-link" download hidden>汇总 CSV</a><a class="text-link" id="json-link" download hidden>完整 JSON</a></div></div>
+      <p class="small" id="export-note" hidden>退出程序会清理临时任务，请先下载结果；人工修改需在复核页导出修正 JSON。</p>
+      <div class="cards" id="cards"></div><p class="empty-results" id="empty-results" hidden>图片处理完成后，结果将显示在这里。</p>
+    </section>
+  </main>
+  <footer class="footer"><span>方形颗粒计数 · 本地工作台</span><span>自动计数仅作为复核起点，请结合原图确认。</span></footer>
+</div>
+<script>
+'use strict';
+(() => {
+  const $ = id => document.getElementById(id);
+  const storageKey = 'particle-local-current-job-v1';
+  const fallbackExtensions = ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp', '.webp'];
+  const state = {config:null, files:[], busy:false, submitting:false, job:null, view:'annotated', pollTimer:null, pollErrors:0, retry:null, generation:0, cardSignature:'', extensions:fallbackExtensions};
+  const number = value => Number.isFinite(Number(value)) ? Number(value) : 0;
+  const formatNumber = value => number(value).toLocaleString('zh-CN');
+  const formatBytes = value => value >= 1024 * 1024 ? `${(value / 1024 / 1024).toFixed(value >= 10 * 1024 * 1024 ? 0 : 1)} MB` : `${Math.max(1, Math.ceil(value / 1024))} KB`;
+  const fileKey = file => JSON.stringify([file.name, file.size, file.lastModified]);
+  const limits = () => state.config?.limits || {};
+  function localUrl(value) {
+    if (typeof value !== 'string' || !value) return null;
+    try {const url = new URL(value, window.location.href); return url.origin === window.location.origin && ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password ? url.href : null;} catch {return null;}
+  }
+  function notify(message, kind='warning', retry=null) {
+    $('notice').hidden = false; $('notice').classList.toggle('error', kind === 'error'); $('notice-copy').textContent = message;
+    state.retry = retry; $('notice-retry').hidden = !retry;
+  }
+  function clearNotice() { $('notice').hidden = true; state.retry = null; }
+  function readStoredJob() { try {return JSON.parse(sessionStorage.getItem(storageKey) || 'null');} catch {return null;} }
+  function saveJob(value) {try {value ? sessionStorage.setItem(storageKey, JSON.stringify(value)) : sessionStorage.removeItem(storageKey);} catch { /* Private browser modes may disable session storage. */ }}
+  async function request(url, options={}, timeout=20000) {
+    const controller = new AbortController(); const timer = timeout ? setTimeout(() => controller.abort(), timeout) : null;
+    try {
+      const response = await fetch(url, {...options, signal:controller.signal, credentials:'same-origin', cache:'no-store'});
+      let payload; try {payload = await response.json();} catch {throw new Error(`本地程序返回了无法读取的响应（HTTP ${response.status}）。`);}
+      if (!response.ok) {const message = typeof payload.error === 'string' ? payload.error : typeof payload.detail === 'string' ? payload.detail : `请求失败（HTTP ${response.status}）。`; const error = new Error(message); error.status = response.status; throw error;}
+      return payload;
+    } catch (error) {if (error.name === 'AbortError') throw new Error('本地程序响应超时。请确认程序仍在运行。'); throw error;} finally {if (timer) clearTimeout(timer);}
+  }
+  function renderQueue() {
+    const totalBytes = state.files.reduce((sum,file) => sum + file.size,0);
+    const list = $('file-list'); list.replaceChildren(); list.hidden = state.files.length === 0;
+    for (const file of state.files) {
+      const row = document.createElement('li'); row.className = 'file-row';
+      const symbol = document.createElement('span'); symbol.className = 'file-symbol'; symbol.textContent = file.name.split('.').pop().slice(0,5); symbol.setAttribute('aria-hidden','true');
+      const detail = document.createElement('div'); detail.className = 'file-detail';
+      const name = document.createElement('p'); name.className = 'file-name'; name.textContent = file.name; name.title = file.name;
+      const size = document.createElement('p'); size.className = 'file-size'; size.textContent = formatBytes(file.size);
+      detail.append(name,size);
+      const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'remove-file'; remove.textContent = '×'; remove.setAttribute('aria-label',`移除 ${file.name}`); remove.disabled = state.busy;
+      remove.addEventListener('click',() => {const position = state.files.indexOf(file); state.files.splice(position,1); renderQueue(); const next = $('file-list').querySelectorAll('.remove-file'); (next[Math.min(position,next.length - 1)] || $('select-files')).focus();});
+      row.append(symbol,detail,remove); list.append(row);
+    }
+    $('queue-summary').textContent = state.files.length ? `已选择 ${state.files.length} 张 · ${formatBytes(totalBytes)}` : state.config ? '尚未选择图片' : '正在连接本地程序…';
+    $('start-job').disabled = !state.config || !state.files.length || state.busy;
+    $('select-files').disabled = !state.config || state.busy; $('file-input').disabled = !state.config || state.busy;
+    $('clear-files').disabled = state.busy || !state.files.length;
+    $('dropzone').classList.toggle('busy',state.busy); $('dropzone').setAttribute('aria-disabled',String(state.busy || !state.config));
+  }
+  function addFiles(inputFiles) {
+    if (state.busy || !state.config) return;
+    const notes = []; const existing = new Set(state.files.map(fileKey)); let total = state.files.reduce((sum,file) => sum + file.size,0);
+    for (const file of inputFiles) {
+      if (existing.has(fileKey(file))) continue;
+      const extension = '.' + file.name.split('.').pop().toLowerCase();
+      if (!state.extensions.includes(extension)) {notes.push(`${file.name}：不支持该文件格式。`);continue;}
+      if (!file.size) {notes.push(`${file.name}：文件为空。`);continue;}
+      if (limits().max_file_bytes && file.size > limits().max_file_bytes) {notes.push(`${file.name}：超过单张 ${formatBytes(limits().max_file_bytes)} 的限制。`);continue;}
+      if (limits().max_files && state.files.length >= limits().max_files) {notes.push(`一次最多选择 ${limits().max_files} 张，剩余图片请分批处理。`);break;}
+      if (limits().max_total_bytes && total + file.size > limits().max_total_bytes) {notes.push(`${file.name}：加入后超过本批 ${formatBytes(limits().max_total_bytes)} 的限制。`);continue;}
+      state.files.push(file); total += file.size; existing.add(fileKey(file));
+    }
+    renderQueue(); if (notes.length) notify(notes.slice(0,4).join('\n') + (notes.length > 4 ? `\n另有 ${notes.length - 4} 个文件未加入。` : '')); else if (!state.pollErrors) clearNotice();
+  }
+  function setProgress(title, completed, total, detail, indeterminate=false) {
+    $('progress-panel').hidden = false; $('progress-title').textContent = title; $('progress-count').textContent = total ? `${formatNumber(completed)} / ${formatNumber(total)} 张` : '';
+    const percent = total ? Math.min(100, Math.max(0,completed / total * 100)) : 0;
+    $('progress-fill').style.width = `${percent}%`; $('progress-fill').classList.toggle('indeterminate',indeterminate);
+    if (indeterminate) {$('progress-fill').style.removeProperty('width'); $('progress-track').removeAttribute('aria-valuenow');} else {$('progress-track').setAttribute('aria-valuenow',String(Math.round(percent)));}
+    $('progress-detail').textContent = detail;
+  }
+  function setResultLink(id, url) {const link = $(id); const safe = localUrl(url); link.hidden = !safe; if (safe) link.href = safe; else link.removeAttribute('href');}
+  function imageIsReady(item) {return ['completed','complete','done','success'].includes(item.status) || (item.status !== 'failed' && item.status !== 'error' && item.count !== undefined && item.count !== null);}
+  function imageIsError(item) {return item.status === 'failed' || item.status === 'error' || Boolean(item.error);}
+  function renderCards(images) {
+    const signature = JSON.stringify([state.view,images]); if (signature === state.cardSignature) return; state.cardSignature = signature;
+    const cards = $('cards'); cards.replaceChildren();
+    for (const item of images) {
+      const failed = imageIsError(item); const ready = imageIsReady(item) && !failed;
+      const card = document.createElement('article'); card.className = 'card';
+      const preview = document.createElement('div'); preview.className = 'preview';
+      const sources = [...new Set((state.view === 'original' ? [item.display_url, item.original_url, item.preview_url] : [item.annotated_url, item.preview_url]).map(localUrl).filter(Boolean))];
+      const source = sources[0];
+      const placeholder = document.createElement('span'); placeholder.className = 'preview-placeholder'; placeholder.textContent = failed ? '此图片未能完成处理' : ready ? '预览暂不可用' : ['running','processing'].includes(item.status) ? '正在识别颗粒…' : '等待处理';
+      if (source) {
+        const img = document.createElement('img'); img.src = source; img.alt = `${item.name || '图片'}的${state.view === 'original' ? '原图' : '自动标注'}`; img.loading = 'lazy'; img.decoding = 'async';
+        const badge = document.createElement('span'); badge.className = 'image-badge'; badge.textContent = state.view === 'original' ? '原图' : item.annotated_url ? '自动标注' : '原图预览';
+        let sourceIndex = 0; img.addEventListener('error',() => {const fallback = sources[++sourceIndex]; if (fallback) {img.src = fallback; const isThumbnail = fallback === localUrl(item.preview_url); badge.textContent = isThumbnail ? '原图预览' : '原图'; img.alt = `${item.name || '图片'}的${isThumbnail ? '原图预览' : '原图'}`; return;} img.remove(); badge.remove(); preview.prepend(placeholder);}); preview.append(img,badge);
+      } else preview.append(placeholder);
+      const body = document.createElement('div'); body.className = 'card-body'; const title = document.createElement('h3'); title.className = 'card-title'; title.textContent = item.name || '未命名图片'; title.title = item.name || ''; body.append(title);
+      if (failed) {const error = document.createElement('p'); error.className = 'card-error'; error.textContent = typeof item.error === 'string' ? item.error : '图片读取或处理失败，请检查文件后重新上传。'; body.append(error);}
+      else if (ready) {
+        const metrics = document.createElement('div'); metrics.className = 'card-metrics';
+        for (const metric of [{value:item.count,label:'自动计数',outer:'',valueClass:'count-value'},{value:item.review_count,label:'待复核候选',outer:'review-metric',valueClass:'review-value'}]) {
+          const block = document.createElement('div'); block.className = metric.outer; const value = document.createElement('p'); value.className = metric.valueClass; value.textContent = formatNumber(metric.value);
+          const label = document.createElement('p'); label.className = 'metric-label'; label.textContent = metric.label; block.append(value,label); metrics.append(block);
+        } body.append(metrics);
+        const candidateDetails = document.createElement('div'); candidateDetails.className = 'candidate-detail';
+        for (const detail of [{value:item.model_rejected_count,label:'自动排除'},{value:item.dim_proposal_count,label:'补漏建议'}]) {
+          if (detail.value === undefined || detail.value === null) continue;
+          const line = document.createElement('span'); line.textContent = `${detail.label} ${formatNumber(detail.value)}`; candidateDetails.append(line);
+        }
+        if (candidateDetails.children.length) body.append(candidateDetails);
+      } else {const status = document.createElement('p'); status.className = 'card-status'; status.textContent = ['running','processing'].includes(item.status) ? '正在处理，请稍候…' : '已排队，处理完成后自动显示。'; body.append(status);}
+      card.append(preview,body); cards.append(card);
+    }
+    $('empty-results').hidden = images.length > 0;
+  }
+  function renderJob(job) {
+    state.job = job; const images = Array.isArray(job.images) ? job.images : []; const progress = job.progress || {};
+    const completed = number(progress.completed); const total = number(progress.total) || images.length || state.files.length;
+    const finished = job.status === 'completed' || job.status === 'failed'; state.busy = !finished;
+    const failures = images.filter(imageIsError).length; const successes = images.filter(item => imageIsReady(item) && !imageIsError(item));
+    const countSum = successes.reduce((sum,item) => sum + number(item.count),0); const reviewSum = successes.reduce((sum,item) => sum + number(item.review_count),0);
+    const title = job.status === 'queued' ? '任务已排队' : job.status === 'failed' ? '任务未能完成' : job.status === 'completed' ? failures ? '处理完成，部分图片失败' : '处理完成' : '正在计数';
+    const detail = job.status === 'failed' ? (typeof job.error === 'string' ? job.error : '本次任务出现错误。可以保留文件列表并再次开始计数。') : job.status === 'completed' ? failures ? `${successes.length} 张成功，${failures} 张失败。失败原因见各图片卡片，可单独重新上传。` : '请打开复核页检查候选点，确认后保存结果。' : progress.current_name ? `当前图片：${progress.current_name}` : '图片将在这台电脑上依次处理，完成后自动更新。';
+    setProgress(title,completed,total,detail,job.status === 'queued'); renderQueue();
+    $('results').hidden = false; $('results-summary').replaceChildren();
+    const summary = $('results-summary'); const strong = document.createElement('strong'); strong.textContent = formatNumber(countSum);
+    summary.append(document.createTextNode(`${successes.length} 张已完成 · 合计 `),strong,document.createTextNode(` 个候选 · ${formatNumber(reviewSum)} 个待复核`));
+    setResultLink('review-link',job.review_url); setResultLink('zip-link',finished ? job.zip_url : null); setResultLink('csv-link',finished ? job.csv_url : null); setResultLink('json-link',finished ? job.json_url : null);
+    $('export-note').hidden = !finished || !successes.length; renderCards(images);
+    if (job.status === 'failed') notify(detail,'error');
+    if (finished) {saveJob({job_id:job.job_id,status_url:`/api/jobs/${encodeURIComponent(job.job_id)}`});}
+  }
+  function schedulePoll(url,generation,delay=1100) {clearTimeout(state.pollTimer); state.pollTimer = setTimeout(() => pollJob(url,generation),delay);}
+  async function pollJob(url,generation) {
+    if (generation !== state.generation) return;
+    try {
+      const job = await request(url); if (generation !== state.generation) return;
+      if (!job || !['queued','running','completed','failed'].includes(job.status)) throw new Error('任务状态无效，请重试连接。');
+      if (state.pollErrors) clearNotice(); state.pollErrors = 0; renderJob(job);
+      if (!['completed','failed'].includes(job.status)) schedulePoll(url,generation);
+    } catch (error) {
+      if (generation !== state.generation) return;
+      state.pollErrors += 1;
+      if (error.status === 404 || error.status === 410) {saveJob(null); state.busy = false; renderQueue(); notify('之前的任务已不可用，可能已清理或程序已重启。请重新选择图片计数。','error'); setProgress('任务已不可用',0,0,'请重新上传图片创建新任务。'); return;}
+      const retry = () => {state.pollErrors = 0; clearNotice(); pollJob(url,generation);};
+      if (state.pollErrors >= 5) {notify(`暂时无法连接本地程序。请确认程序仍在运行，再点击“重试连接”。\n${error.message}`,'error',retry);}
+      else {notify('本地连接暂时中断，正在自动重试。已提交的任务可能仍在处理，请保持程序运行。','warning',retry); schedulePoll(url,generation,Math.min(15000,1500 * 2 ** state.pollErrors));}
+    }
+  }
+  async function startJob() {
+    if (!state.files.length || state.busy || !state.config) return;
+    clearNotice(); clearTimeout(state.pollTimer); const generation = ++state.generation; state.busy = true; state.submitting = true; state.cardSignature = ''; renderQueue();
+    $('results').hidden = true; setProgress('正在提交图片',0,state.files.length,'正在将图片交给本机程序，请稍候…',true);
+    const data = new FormData(); state.files.forEach(file => data.append('files',file,file.name));
+    try {
+      const job = await request('/api/jobs',{method:'POST',body:data},0);
+      if (generation !== state.generation) return;
+      const url = localUrl(job.status_url) || (job.job_id ? localUrl(`/api/jobs/${encodeURIComponent(job.job_id)}`) : null);
+      if (!job.job_id || !url) throw new Error('本地程序未返回有效任务编号，请重试。');
+      saveJob({job_id:job.job_id,status_url:url}); state.pollErrors = 0; await pollJob(url,generation);
+    } catch (error) {if (generation === state.generation) {state.busy = false; renderQueue(); setProgress('提交未完成',0,state.files.length,'文件列表已保留，请确认本地程序仍在运行后再次开始计数。'); notify(`图片提交失败：${error.message}`,'error');}}
+    finally {state.submitting = false;}
+  }
+  async function loadConfig() {
+    try {
+      const config = await request('/api/config'); if (!config || !config.limits) throw new Error('无法读取程序的上传限制。'); state.config = config;
+      $('model-name').textContent = typeof config.model_name === 'string' ? config.model_name : '颗粒识别模型';
+      const configured = config.allowed_extensions || config.supported_extensions;
+      if (Array.isArray(configured) && configured.length) {const extensions = configured.map(ext => typeof ext === 'string' ? ext.trim().toLowerCase() : '').filter(ext => /^\.?[a-z0-9]+$/.test(ext)).map(ext => ext.startsWith('.') ? ext : '.'+ext); if (extensions.length) state.extensions = extensions;}
+      $('file-input').accept = state.extensions.join(','); $('format-note').textContent = `支持 ${[...new Set(state.extensions.map(ext => ext.slice(1).toUpperCase()).map(ext => ext === 'JPEG' ? 'JPG' : ext === 'TIF' ? 'TIFF' : ext))].join('、')}，可多选`;
+      const limitText = []; if (limits().max_files) limitText.push(`每批最多 ${limits().max_files} 张`); if (limits().max_file_bytes) limitText.push(`单张不超过 ${formatBytes(limits().max_file_bytes)}`); if (limits().max_total_bytes) limitText.push(`每批合计不超过 ${formatBytes(limits().max_total_bytes)}`); if (limits().max_pixels) limitText.push(`单张像素不超过 ${formatNumber(limits().max_pixels)}`);
+      $('limits-note').textContent = limitText.join(' · '); clearNotice(); renderQueue();
+      const previous = readStoredJob(); const previousUrl = localUrl(previous?.status_url);
+      if (previous?.job_id && previousUrl && !state.job && !state.busy) {state.busy = true; renderQueue(); setProgress('正在恢复上次任务',0,0,'读取本机保存的处理进度…',true); await pollJob(previousUrl,++state.generation);}
+    } catch (error) {$('model-name').textContent = '暂未连接'; $('queue-summary').textContent = '本地程序未连接'; notify(`无法连接本地程序：${error.message}`,'error',loadConfig);}
+  }
+  $('select-files').addEventListener('click',() => $('file-input').click());
+  $('file-input').addEventListener('change',event => {addFiles(event.target.files); event.target.value = '';});
+  $('clear-files').addEventListener('click',() => {if (!state.busy) {state.files = []; renderQueue(); $('select-files').focus();}});
+  $('start-job').addEventListener('click',startJob);
+  $('notice-dismiss').addEventListener('click',clearNotice);
+  $('notice-retry').addEventListener('click',() => {const retry = state.retry; if (retry) {clearTimeout(state.pollTimer); retry();}});
+  for (const mode of ['annotated','original']) $('show-'+mode).addEventListener('click',() => {state.view = mode; $('show-annotated').setAttribute('aria-pressed',String(mode === 'annotated')); $('show-original').setAttribute('aria-pressed',String(mode === 'original')); renderCards(state.job?.images || []);});
+  let dragDepth = 0;
+  $('dropzone').addEventListener('dragenter',event => {event.preventDefault(); dragDepth += 1; if (!state.busy && state.config) $('dropzone').classList.add('dragging');});
+  $('dropzone').addEventListener('dragover',event => {event.preventDefault(); if (event.dataTransfer) event.dataTransfer.dropEffect = state.busy ? 'none' : 'copy';});
+  $('dropzone').addEventListener('dragleave',event => {event.preventDefault(); dragDepth = Math.max(0,dragDepth-1); if (!dragDepth) $('dropzone').classList.remove('dragging');});
+  $('dropzone').addEventListener('drop',event => {event.preventDefault(); dragDepth = 0; $('dropzone').classList.remove('dragging'); if (event.dataTransfer) addFiles(event.dataTransfer.files);});
+  window.addEventListener('dragover',event => event.preventDefault()); window.addEventListener('drop',event => event.preventDefault());
+  window.addEventListener('beforeunload',event => {if (state.submitting) {event.preventDefault(); event.returnValue = '';}});
+  loadConfig();
+})();
+</script>
+</body>
+</html>

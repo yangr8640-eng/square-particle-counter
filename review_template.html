@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>绿色方形颗粒 · 计数核对</title>
+  <style>
+    :root{font-family:ui-sans-serif,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#193329;background:#f3f6f3;font-synthesis:none;--line:#d8e2da;--green:#166d48;--muted:#63746a}
+    *{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,select{min-height:38px;border:1px solid var(--line);border-radius:7px;background:#fff;color:inherit;padding:7px 11px}button{cursor:pointer}button:hover{border-color:#639b7b;background:#f0f6f1}button:disabled{opacity:.4;cursor:default}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #589afa;outline-offset:2px}button.active,button.primary{background:var(--green);border-color:var(--green);color:white}.wrap{max-width:1680px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}h1{font-size:24px;letter-spacing:-.5px;margin:0 0 7px}p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}.badge{background:#e1efe5;color:#256445;font-size:12px;padding:6px 10px;border-radius:20px;white-space:nowrap}.topline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:15px}select{min-width:135px;font-weight:600}.dimensions{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 15px}.stat{background:white;border:1px solid var(--line);border-radius:10px;padding:12px 17px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:29px;line-height:1.25;margin-top:5px;font-variant-numeric:tabular-nums}.stat.current{border-color:#80b597;background:#eef8f1}.stat.review strong{color:#a5680e}.stat.excluded strong{color:#b44748}.workspace{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px;border-bottom:1px solid var(--line)}.group{display:flex;gap:5px;align-items:center}.divider{height:24px;border-left:1px solid var(--line);margin:0 3px}.zoomlabel{font-size:12px;min-width:44px;text-align:center;font-variant-numeric:tabular-nums}.canvasbox{height:min(67vh,800px);min-height:360px;background:#121916;position:relative;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas[data-mode=toggle],canvas[data-mode=confirm]{cursor:pointer}canvas[data-mode=add]{cursor:crosshair}canvas.dragging{cursor:grabbing!important}.canvasnote{position:absolute;left:14px;top:13px;pointer-events:none;background:#17201dd9;color:#d3e1d8;border:1px solid #56625b88;border-radius:6px;font-size:12px;padding:7px 10px;max-width:calc(100% - 28px);line-height:1.5}.canvasstatus{position:absolute;right:12px;bottom:12px;pointer-events:none;font-size:11px;background:#15211cdd;color:#dde8e0;padding:5px 8px;border-radius:4px;font-variant-numeric:tabular-nums}.options{padding:11px 14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);font-size:12px;color:#455d4e}.options label{display:flex;align-items:center;gap:6px;cursor:pointer}.options input{accent-color:var(--green);width:16px;height:16px}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-left:auto}.legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:9px;height:9px;border-radius:50%;display:inline-block}.green{background:#49ef9a}.orange{background:#ffc052}.red{background:#fb6676}.gray{background:#9da8a1}.bottom{margin:16px 0;display:flex;gap:12px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}.actions{display:flex;gap:7px;flex-wrap:wrap}.notice{font-size:12px;color:var(--muted);line-height:1.7;max-width:850px}.save{color:#226646}.save.error{color:#ad3c36}.summary{margin-top:20px;border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden}.summaryhead{padding:13px 16px;border-bottom:1px solid var(--line);font-weight:600;font-size:14px;display:flex;justify-content:space-between;gap:12px}.summaryhead small{font-weight:400;color:var(--muted)}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px;text-align:right}th,td{padding:10px 16px;border-bottom:1px solid #edf1ed;font-variant-numeric:tabular-nums}th{font-size:12px;font-weight:500;color:var(--muted);background:#f8faf7}th:first-child,td:first-child{text-align:left}tbody tr{cursor:pointer}tbody tr:hover{background:#f5f9f5}tbody tr.selected{background:#edf6ef}tfoot{font-weight:700}tfoot td{border-bottom:0}details{font-size:12px;color:var(--muted);margin:16px 0}summary{cursor:pointer;font-weight:600}details p{font-size:12px;margin:8px 0}.toast{min-height:20px;font-size:12px;color:#315d45;margin:8px 0 0;line-height:1.5}#loadError{position:absolute;inset:0;display:none;place-content:center;padding:30px;color:#f7d4ce;white-space:pre-line;text-align:center;font-size:14px;line-height:1.8;pointer-events:none}@media(max-width:700px){.wrap{padding:14px}h1{font-size:20px}.badge{display:none}.stats{grid-template-columns:repeat(2,1fr)}.stat{padding:10px 13px}.stat strong{font-size:25px}.canvasbox{height:60vh;min-height:330px}.toolbar{padding:8px;gap:7px}button{padding:7px 9px;font-size:12px}.divider{display:none}.legend{margin-left:0;width:100%}.summaryhead{display:block}.summaryhead small{display:block;margin-top:4px}th,td{padding:10px 12px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header><div><h1>绿色方形颗粒 · 计数核对</h1><p>逐粒核对自动识别结果，排除干扰、补充漏检，并导出最终计数。</p></div><span class="badge">离线 · 原图坐标</span></header>
+  <div class="topline"><label for="imageSelect">当前图片</label><select id="imageSelect"></select><span id="dimensions" class="dimensions"></span></div>
+  <section class="stats" aria-label="当前图片计数">
+    <div class="stat"><span class="label">原始自动数</span><strong id="autoCount">0</strong></div>
+    <div class="stat current"><span class="label">当前计数</span><strong id="currentCount">0</strong></div>
+    <div class="stat review"><span class="label">其中待复核 · 已计入</span><strong id="reviewCount">0</strong></div>
+    <div class="stat excluded"><span class="label">红色干扰候选 · 未计入</span><strong id="excludedCount">0</strong></div>
+  </section>
+  <section class="workspace" aria-label="图像核对工作区">
+    <div class="toolbar">
+      <div class="group" role="group" aria-label="操作模式">
+        <button type="button" data-tool="pan" class="active" aria-pressed="true">拖动查看</button>
+        <button type="button" data-tool="toggle" aria-pressed="false">删除 / 恢复</button>
+        <button type="button" data-tool="add" aria-pressed="false">增加漏检</button>
+        <button type="button" data-tool="confirm" aria-pressed="false">确认待复核</button>
+        <button id="nextReview" type="button" title="定位橙圈后：1 确认，2 删除，Enter 下一项">下一个待复核</button>
+        <button id="confirmRemaining" type="button" title="将本图尚未删除的橙点全部确认为颗粒，可撤销">一键确认本图剩余待复核</button>
+      </div><span class="divider"></span>
+      <div class="group" role="group" aria-label="缩放">
+        <button id="zoomOut" type="button" aria-label="缩小">−</button><span id="zoomLabel" class="zoomlabel">100%</span><button id="zoomIn" type="button" aria-label="放大">＋</button><button id="fit" type="button">适合窗口</button><button id="actual" type="button">1:1</button>
+      </div><span class="divider"></span>
+      <div class="group"><button id="undo" type="button" disabled>撤销</button><button id="resetImage" type="button">恢复本图</button></div>
+    </div>
+    <div class="canvasbox" id="canvasbox">
+      <canvas id="canvas" data-mode="pan" tabindex="0" aria-label="颗粒核对画布。使用上方按钮选择拖动、删除恢复、增加或确认模式。"></canvas>
+      <div class="canvasnote" id="modeHint">拖动查看 · 滚轮缩放，按住空格或三指可临时拖动</div>
+      <div class="canvasstatus" id="canvasStatus"></div><div id="loadError" role="alert"></div>
+    </div>
+    <div class="options">
+      <label><input type="checkbox" id="originalOnly">只看原图</label>
+      <label><input type="checkbox" id="showNumbers">中心编号</label>
+      <label><input type="checkbox" id="showRemoved" checked>显示已删除</label>
+      <label><input type="checkbox" id="showExcluded" checked>显示干扰候选</label>
+      <div class="legend" aria-label="标记颜色"><span><i class="dot green"></i>计入</span><span><i class="dot orange"></i>待复核，计入</span><span><i class="dot red"></i>干扰，未计入</span><span><i class="dot gray"></i>已删除</span></div>
+    </div>
+  </section>
+  <div class="toast" id="message" role="status" aria-live="polite"></div>
+  <div class="bottom"><div class="notice"><div id="saveStatus" class="save">修改自动保存在本浏览器。</div><div>核对修改只作用于本页面，不改动原始图片及 Python 输出。请导出 JSON 保存坐标和修改记录；CSV 保存每张图片的计数汇总。</div><div>橙点是绿色目标中的待复核子集，默认计入；红圈仅为干扰候选，默认不计入。如红圈处确为目标，请用“增加漏检”补点。</div></div><div class="actions"><button id="exportJson" class="primary" type="button">导出修正 JSON</button><button id="exportCsv" type="button">导出汇总 CSV</button><button id="resetAll" type="button">全部恢复</button></div></div>
+  <section class="summary"><div class="summaryhead">全部图片汇总 <small>点击一行切换图片；待复核数量包含在当前计数内</small></div><div class="tablewrap"><table><thead><tr><th>图片</th><th>原始自动数</th><th>当前计数</th><th>待复核</th><th>干扰候选</th><th>手动新增</th><th>已删除</th></tr></thead><tbody id="summaryBody"></tbody><tfoot id="summaryFoot"></tfoot></table></div></section>
+  <details><summary>使用说明与算法信息</summary><p>键盘复核：先点击“下一个待复核”定位橙圈；按数字 1 确认当前点，或按数字 2 删除当前点，画面保持当前位置。按 Enter 再跳到下一个待复核点；直接按 Enter 可暂时跳过。切换下一项前，可用 1 / 2 改变判断；误操作可用 Ctrl / Command + Z 撤销。</p><p>建议先检查橙点，再沿图像逐区核对。自动计数仍可能出现漏检、重叠颗粒拆分错误和颜色边界误判。</p><p>“删除 / 恢复”点击圆圈切换是否计数；“增加漏检”在颗粒中心单击；“确认待复核”将橙点变为绿色，计数不变。删除误检后，可点击“一键确认本图剩余待复核”将本图未删除的橙点全部变绿；已删除点保持删除，其他图片不受影响，支持一次撤销。各模式都支持按住空格或三指拖动。滚轮以鼠标位置为中心缩放，Ctrl / Command + Z 撤销本次打开页面后的操作。</p><p>只有原图范围内可新增标记；手动点以原图像素坐标保存。切换图片不会清除修改。数据版本变化后使用新的本地保存空间，避免混入旧结果；浏览器可能限制 file:// 页面的本地存储，此时请及时导出。</p><p id="method"></p></details>
+</main>
+<script>
+"use strict";
+const DATA = __PARTICLE_DATA_JSON__;
+(() => {
+  const $ = id => document.getElementById(id);
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const images = Array.isArray(DATA.images) ? DATA.images : [];
+  const baseline = images.map(im => im.points.map(p => ({...p, status:p.status === "review" ? "review" : "accepted", removed:false, origin:"automatic"})));
+  let states = clone(baseline), current = 0, mode = "pan", image = null, loadToken = 0, fitPending = true;
+  let scale = 1, ox = 0, oy = 0, spaceHeld = false, drag = null, hover = null, focusedReviewId = null;
+  let touchPoints = new Map(), touchMulti = false, touchPan = false;
+  const reviewCursor = images.map(() => -1);
+  const history = [], canvas = $("canvas"), ctx = canvas.getContext("2d"), box = $("canvasbox");
+  let cssWidth = 1, cssHeight = 1, dpr = 1;
+  function hash(text) { let h = 2166136261; for(let n=0;n<text.length;n++){h ^= text.charCodeAt(n); h = Math.imul(h,16777619);}return (h>>>0).toString(16); }
+  const version = hash(JSON.stringify(DATA)), storageKey = "particle-review:v1:" + version;
+  function message(text) { $("message").textContent = text; }
+  function counts(i) { const active=states[i].filter(p=>!p.removed); return {auto:images[i].count ?? baseline[i].length,current:active.length,review:active.filter(p=>p.status==="review").length,excluded:(images[i].excluded||[]).length,added:active.filter(p=>p.origin==="manual").length,removed:states[i].filter(p=>p.removed).length}; }
+  // The immutable model output is already embedded in this page. Store only
+  // edits, grouping identical field changes so bulk confirmation stays small.
+  // Array positions also preserve older saved states whose point IDs changed.
+  function imageDelta(i) {
+    const original=baseline[i], points=states[i], length=Math.min(original.length,points.length), groups=new Map();
+    for(let n=0;n<length;n++) {
+      const before=original[n], after=points[n], entries=[], unset=[];
+      for(const key of Object.keys(after)) {
+        if(!Object.prototype.hasOwnProperty.call(before,key)||before[key]!==after[key]&&(typeof after[key]!=="object"||JSON.stringify(before[key])!==JSON.stringify(after[key]))) entries.push([key,after[key]]);
+      }
+      for(const key of Object.keys(before)) if(!Object.prototype.hasOwnProperty.call(after,key)) unset.push(key);
+      if(entries.length||unset.length) {
+        const set=Object.fromEntries(entries), signature=JSON.stringify([set,unset]);
+        if(!groups.has(signature)) groups.set(signature,{indices:[],set,...(unset.length?{unset}:{})});
+        groups.get(signature).indices.push(n);
+      }
+    }
+    const edits=[...groups.values()], added=points.slice(original.length);
+    if(!edits.length&&!added.length&&length===original.length)return null;
+    return {edits,...(added.length?{added}:{}),...(length!==original.length?{length}:{})};
+  }
+  function savedChanges() {
+    return {version,storageFormat:"baseline-delta-v1",changes:Object.fromEntries(images.flatMap((im,i)=>{const delta=imageDelta(i);return delta?[[im.name,delta]]:[];}))};
+  }
+  function validPoints(points,im) {
+    return Array.isArray(points)&&points.every(p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.y>=0&&p.x<im.width&&p.y<im.height&&(p.status==="accepted"||p.status==="review")&&(p.origin==="automatic"||p.origin==="manual"));
+  }
+  function restoreDelta(i,delta) {
+    const length=delta.length??baseline[i].length;
+    if(!Number.isInteger(length)||length<0||length>baseline[i].length||!Array.isArray(delta.edits)||delta.added!==undefined&&!Array.isArray(delta.added))throw Error("Invalid saved changes");
+    const points=clone(baseline[i]).slice(0,length), seen=new Set();
+    for(const edit of delta.edits) {
+      if(!Array.isArray(edit.indices)||!edit.set||typeof edit.set!=="object"||Array.isArray(edit.set)||edit.unset!==undefined&&(!Array.isArray(edit.unset)||!edit.unset.every(k=>typeof k==="string")))throw Error("Invalid saved edit");
+      for(const index of edit.indices) {
+        if(!Number.isInteger(index)||index<0||index>=length||seen.has(index))throw Error("Invalid saved point index");
+        seen.add(index);points[index]={...points[index],...edit.set};
+        for(const key of edit.unset||[])delete points[index][key];
+      }
+    }
+    points.push(...(delta.added||[]));
+    if(!validPoints(points,images[i]))throw Error("Invalid saved point");
+    return points;
+  }
+  function save() { try { localStorage.setItem(storageKey,JSON.stringify(savedChanges()));$("saveStatus").textContent="修改已保存在本浏览器 · 数据版本 " + version;$("saveStatus").className="save"; }catch(e){$("saveStatus").textContent="浏览器无法保存本地修改，请及时导出 JSON。";$("saveStatus").className="save error";} }
+  try {
+    const stored = JSON.parse(localStorage.getItem(storageKey) || "null");
+    if(stored && stored.version===version && (stored.storageFormat==="baseline-delta-v1"&&stored.changes||stored.images)) {
+      const restored=clone(baseline);
+      images.forEach((im,i) => {
+        if(stored.storageFormat==="baseline-delta-v1") {
+          if(Object.prototype.hasOwnProperty.call(stored.changes,im.name))restored[i]=restoreDelta(i,stored.changes[im.name]);
+        }else{const pts=stored.images[im.name];if(validPoints(pts,im))restored[i]=pts;}
+      });
+      states=restored;
+      $("saveStatus").textContent="已恢复本浏览器保存的修改 · 数据版本 " + version;
+    }
+  }catch(e){$("saveStatus").textContent="本地保存不可用或旧记录无法读取，请及时导出 JSON。";$("saveStatus").className="save error";}
+  function checkpoint(indices) { history.push(indices.map(i=>({i,points:clone(states[i])}))); if(history.length>100)history.shift(); }
+  function changed(text) {save();updateUI();draw();message(text);}
+  function updateUI() {
+    if(!images.length)return;
+    const c=counts(current);$("autoCount").textContent=c.auto;$("currentCount").textContent=c.current;$("reviewCount").textContent=c.review;$("excludedCount").textContent=c.excluded;$("undo").disabled=!history.length;$("confirmRemaining").disabled=c.review===0;$("confirmRemaining").title=c.review?"确认本图剩余 "+c.review+" 个橙点，计数不变，可撤销":"本图没有待复核点";
+    $("imageSelect").value=String(current);$("dimensions").textContent=images[current].width+" × "+images[current].height+" 像素";
+    const totals={auto:0,current:0,review:0,excluded:0,added:0,removed:0}, keys=Object.keys(totals), frag=document.createDocumentFragment();
+    images.forEach((im,i)=>{const row=document.createElement("tr");row.className=i===current?"selected":"";row.tabIndex=0;row.setAttribute("aria-label","切换至 "+im.name); const c=counts(i);[im.name,...keys.map(k=>c[k])].forEach(value=>{const td=document.createElement("td");td.textContent=value;row.appendChild(td);});keys.forEach(k=>totals[k]+=c[k]);row.addEventListener("click",()=>selectImage(i));row.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectImage(i);}});frag.appendChild(row);});
+    $("summaryBody").replaceChildren(frag);const totalRow=document.createElement("tr");["合计",...keys.map(k=>totals[k])].forEach(value=>{const td=document.createElement("td");td.textContent=value;totalRow.appendChild(td);});$("summaryFoot").replaceChildren(totalRow);
+  }
+  function bounds() {return {min:Math.min(cssWidth/images[current].width,cssHeight/images[current].height)*.2,max:12};}
+  function fit() { if(!images.length)return;scale=Math.min(cssWidth/images[current].width,cssHeight/images[current].height)*.97;ox=(cssWidth-images[current].width*scale)/2;oy=(cssHeight-images[current].height*scale)/2;fitPending=false;draw(); }
+  function zoom(factor,x=cssWidth/2,y=cssHeight/2) {const b=bounds(),next=Math.max(b.min,Math.min(b.max,scale*factor));const ratio=next/scale;ox=x-(x-ox)*ratio;oy=y-(y-oy)*ratio;scale=next;draw();}
+  function resize() { const rect=box.getBoundingClientRect();cssWidth=rect.width;cssHeight=rect.height;dpr=window.devicePixelRatio||1;canvas.width=Math.round(cssWidth*dpr);canvas.height=Math.round(cssHeight*dpr);if(fitPending)fit();else draw(); }
+  function draw() {
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cssWidth,cssHeight);$("zoomLabel").textContent=Math.round(scale*100)+"%";
+    if(!image)return;ctx.drawImage(image,ox,oy,images[current].width*scale,images[current].height*scale);
+    if($("originalOnly").checked)return;
+    ctx.save();ctx.beginPath();ctx.rect(ox,oy,images[current].width*scale,images[current].height*scale);ctx.clip();
+    if($("showExcluded").checked) for(const p of images[current].excluded||[]) mark(p,"#fb6676",true,false);
+    for(const p of states[current]) {if(p.removed&&!$("showRemoved").checked)continue;mark(p,p.removed?"#9da8a1":p.status==="review"?"#ffc052":"#49ef9a",false,p.removed);}
+    ctx.restore();
+  }
+  function mark(p,color,excluded,removed) {
+    const x=ox+p.x*scale,y=oy+p.y*scale,r=Math.max(2.2,(p.radius||12)*scale),highlight=!excluded&&!removed&&(p===hover||p.id===focusedReviewId);
+    if(x+r<0||x-r>cssWidth||y+r<0||y-r>cssHeight)return;
+    const stroke=highlight?2:Math.max(.85,Math.min(1.8,scale*1.6));
+    ctx.save();ctx.strokeStyle="#07110ccc";ctx.lineWidth=stroke+(highlight?1.8:1);ctx.setLineDash(removed?[4,3]:excluded?[3,3]:[]);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();ctx.strokeStyle=color;ctx.lineWidth=stroke;ctx.stroke();
+    if(highlight){ctx.setLineDash([]);ctx.strokeStyle="#ffffff";ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,r+4,0,Math.PI*2);ctx.stroke();}
+    if(removed){ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(x-r*.6,y-r*.6);ctx.lineTo(x+r*.6,y+r*.6);ctx.moveTo(x+r*.6,y-r*.6);ctx.lineTo(x-r*.6,y+r*.6);ctx.stroke();}
+    if(!excluded&&!removed&&($("showNumbers").checked||highlight)){ctx.setLineDash([]);ctx.font="bold 10px system-ui,sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.lineJoin="round";ctx.strokeStyle="#07110c";ctx.lineWidth=3;ctx.strokeText(String(p.id),x,y);ctx.fillStyle=color;ctx.fillText(String(p.id),x,y);}
+    ctx.restore();
+  }
+  function selectImage(i) {
+    current=i;hover=null;focusedReviewId=null;image=null;loadToken++;const token=loadToken;fitPending=true;$("loadError").style.display="none";$("canvasStatus").textContent="正在载入原图…";updateUI();fit();
+    const next=new Image();next.onload=()=>{if(token!==loadToken)return;image=next;$("canvasStatus").textContent=images[current].name;draw();};next.onerror=()=>{if(token!==loadToken)return;$("loadError").textContent="无法载入原图："+images[current].src+"\n请保留 results 与原始 PNG 的相对目录位置。";$("loadError").style.display="grid";$("canvasStatus").textContent="原图加载失败";};next.src=images[i].src;
+  }
+  const modeHints={pan:"拖动查看 · 滚轮缩放；删除 / 恢复模式可用三指拖动",toggle:"删除 / 恢复 · 单击标记切换计数，拖动不会修改；三指拖动查看",add:"增加漏检 · 在颗粒中心单击新增，拖动不会新增；三指拖动查看",confirm:"键盘复核 · 1 确认 · 2 删除 · Enter 下一项；三指拖动查看"};
+  function updateMode() {canvas.dataset.mode=$("originalOnly").checked?"pan":mode;$("modeHint").textContent=$("originalOnly").checked?"只看原图 · 标记编辑已暂停，拖动查看 / 滚轮缩放":modeHints[mode];document.querySelectorAll("[data-tool]").forEach(b=>{b.classList.toggle("active",b.dataset.tool===mode);b.setAttribute("aria-pressed",String(b.dataset.tool===mode));});}
+  function nextReview(prefix="") {
+    if(!image){message("原图尚未加载完成，请稍后再定位待复核点。");return;}
+    canvas.focus({preventScroll:true});
+    // Keep processed points in the ordering so the next key advances from the
+    // current point even after confirmation/deletion removes it from pending.
+    const ordered=states[current].map((p,i)=>({p,i}));
+    const isPending=({p})=>!p.removed&&p.status==="review", pending=ordered.filter(isPending);
+    if(!pending.length){focusedReviewId=null;hover=null;draw();$("canvasStatus").textContent=images[current].name+" · 本图复核完成";message(prefix+"本图没有待复核点，可切换图片或导出修正 JSON。");return;}
+    const previous=ordered.findIndex(({p})=>p.id===focusedReviewId);
+    const next=ordered.slice(previous+1).find(isPending)||pending[0];reviewCursor[current]=next.i;focusedReviewId=next.p.id;hover=null;
+    $("originalOnly").checked=false;mode="confirm";updateMode();
+    scale=Math.max(2,Math.min(4,Math.min(cssWidth,cssHeight)/220));ox=cssWidth/2-next.p.x*scale;oy=cssHeight/2-next.p.y*scale;draw();
+    message(prefix+"待复核 #"+next.p.id+"（剩余 "+pending.length+" 个）："+(next.p.reason||"请检查颗粒颜色与完整暗边")+"。按 1 确认或 2 删除，再按 Enter 下一项；直接按 Enter 可暂时跳过。单击中心橙点仍可确认并自动前进。");
+    $("canvasStatus").textContent=images[current].name+" · 待复核 #"+next.p.id;
+  }
+  $("nextReview").addEventListener("click",()=>nextReview());
+  function keyboardReviewDecision(keep) {
+    if(!image||mode!=="confirm"||$("originalOnly").checked||focusedReviewId===null)return;
+    const p=states[current].find(p=>p.id===focusedReviewId);
+    if(!p)return;
+    const decision=keep?"keep":"delete", label=keep?"已确认":"已删除";
+    const already=p.human_decision===decision&&(keep?!p.removed&&p.status==="accepted"&&p.confirmed:p.removed);
+    if(!already) {
+      checkpoint([current]);
+      p.removed=!keep;p.human_decision=decision;p.confirmed=keep;
+      if(keep)p.status="accepted";
+      changed(label+" #"+p.id+"。按 Enter 查看下一个；按 "+(keep?"2":"1")+" 可改为"+(keep?"删除":"确认")+"。");
+    }
+    $("canvasStatus").textContent=images[current].name+" · "+label+" #"+p.id+" · Enter 下一项";
+  }
+  $("confirmRemaining").addEventListener("click",()=>{
+    const pending=states[current].filter(p=>!p.removed&&p.status==="review");
+    if(!pending.length){message("本图没有待复核点。");return;}
+    checkpoint([current]);
+    pending.forEach(p=>{p.status="accepted";p.confirmed=true;});
+    focusedReviewId=null;hover=null;reviewCursor[current]=-1;
+    $("originalOnly").checked=false;updateMode();
+    $("canvasStatus").textContent=images[current].name;
+    changed("已确认 "+images[current].name+" 剩余 "+pending.length+" 个待复核点，计数不变。已删除点保持删除；可点击“撤销”恢复本次确认。");
+  });
+  function coords(e) {const r=canvas.getBoundingClientRect();return {sx:e.clientX-r.left,sy:e.clientY-r.top,x:(e.clientX-r.left-ox)/scale,y:(e.clientY-r.top-oy)/scale};}
+  function nearest(pos,predicate=()=>true) {let closest=null,best=Infinity;for(const p of states[current]){if(!predicate(p))continue;const distance=Math.hypot((p.x-pos.x)*scale,(p.y-pos.y)*scale),target=Math.max(10,(p.radius||12)*scale+4);if(distance<=target&&distance<best){closest=p;best=distance;}}return closest;}
+  function edit(pos) {
+    if(!image||$("originalOnly").checked||mode==="pan")return;
+    const im=images[current];if(pos.x<0||pos.y<0||pos.x>=im.width||pos.y>=im.height)return;
+    if(mode==="add") {
+      if(nearest(pos,p=>!p.removed)){message("附近已有标记，请放大后准确补点，或先删除重复标记。");return;}
+      checkpoint([current]);const id=Math.max(0,...states[current].map(p=>Number(p.id)||0))+1;
+      states[current].push({id,x:Math.round(pos.x*100)/100,y:Math.round(pos.y*100)/100,status:"accepted",radius:12,reason:"人工补充漏检",origin:"manual",removed:false});changed("已新增 #"+id+"，计数 +1。");
+    } else {
+      const p=nearest(pos,p=>mode==="confirm"?!p.removed&&p.status==="review":!p.removed||$("showRemoved").checked);
+      if(!p){message(mode==="confirm"?"请点击橙色待复核标记。":"请点击已有标记；恢复时请开启“显示已删除”。");return;}
+      checkpoint([current]);if(mode==="toggle"){p.removed=!p.removed;changed((p.removed?"已删除 #":"已恢复 #")+p.id+(p.removed?"，计数 −1。":"，计数 +1。"));}else{const advance=p.id===focusedReviewId;p.status="accepted";p.confirmed=true;changed("已确认 #"+p.id+"，计数不变。");if(advance)nextReview("已确认 #"+p.id+"，计数不变。 ");}
+    }
+  }
+  function touchCenter(start=false) {
+    let sx=0,sy=0,n=0;for(const point of touchPoints.values()){sx+=start?point.startSx:point.sx;sy+=start?point.startSy:point.sy;n++;}
+    return n?{sx:sx/n,sy:sy/n}:{sx:0,sy:0};
+  }
+  canvas.addEventListener("pointerdown",e=>{
+    if(e.pointerType==="touch"){
+      e.preventDefault();const p=coords(e);touchPoints.set(e.pointerId,{sx:p.sx,sy:p.sy,startSx:p.sx,startSy:p.sy});
+      if(touchPoints.size>1)touchMulti=true;
+      if(touchPoints.size>=3){
+        if(!touchPan){const c=touchCenter(true);touchPan=true;drag={id:null,sx:c.sx,sy:c.sy,ox,oy,panning:true,moved:true};}
+        canvas.setPointerCapture(e.pointerId);canvas.classList.add("dragging");return;
+      }
+    }
+    if(e.button!==0)return;e.preventDefault();canvas.focus({preventScroll:true});const p=coords(e);drag={id:e.pointerId,sx:p.sx,sy:p.sy,ox,oy,panning:mode==="pan"||spaceHeld||$("originalOnly").checked,moved:false};canvas.setPointerCapture(e.pointerId);if(drag.panning)canvas.classList.add("dragging");
+  });
+  canvas.addEventListener("pointermove",e=>{
+    const p=coords(e);
+    if(e.pointerType==="touch"&&touchPoints.has(e.pointerId)){
+      const point=touchPoints.get(e.pointerId);point.sx=p.sx;point.sy=p.sy;
+      if(touchPan){const c=touchCenter();ox=drag.ox+c.sx-drag.sx;oy=drag.oy+c.sy-drag.sy;draw();return;}
+    }
+    if(drag&&e.pointerId===drag.id){const dx=p.sx-drag.sx,dy=p.sy-drag.sy;if(Math.hypot(dx,dy)>4)drag.moved=true;if(drag.panning){ox=drag.ox+dx;oy=drag.oy+dy;draw();}}
+    if(images.length&&image&&!touchPan){const previousHover=hover;hover=nearest(p,p=>!p.removed||$("showRemoved").checked);if(previousHover!==hover)draw();$("canvasStatus").textContent=p.x>=0&&p.y>=0&&p.x<images[current].width&&p.y<images[current].height?"x "+Math.round(p.x)+" · y "+Math.round(p.y)+(hover&&!$("originalOnly").checked?" · #"+hover.id+(hover.reason?" · "+hover.reason:""):""):images[current].name;}
+  });
+  canvas.addEventListener("pointerleave",()=>{if(hover&&!drag){hover=null;draw();}});
+  function endPointer(e,cancelled) {
+    if(e.pointerType==="touch"){
+      touchPoints.delete(e.pointerId);
+      if(touchPan||touchMulti){if(touchPoints.size<3){touchPan=false;drag=null;canvas.classList.remove("dragging");}if(touchPoints.size===0)touchMulti=false;return;}
+    }
+    if(!drag||e.pointerId!==drag.id)return;const old=drag;drag=null;canvas.classList.remove("dragging");if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(!cancelled&&!old.panning&&!old.moved)edit(coords(e));
+  }
+  canvas.addEventListener("pointerup",e=>endPointer(e,false));canvas.addEventListener("pointercancel",e=>endPointer(e,true));canvas.addEventListener("lostpointercapture",()=>{drag=null;touchPan=false;touchPoints.clear();touchMulti=false;canvas.classList.remove("dragging");});
+  canvas.addEventListener("wheel",e=>{e.preventDefault();if(!images.length)return;const p=coords(e);zoom(Math.exp(-Math.max(-100,Math.min(100,e.deltaY))*.002),p.sx,p.sy);},{passive:false});
+  document.querySelectorAll("[data-tool]").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.tool;updateMode();}));
+  ["originalOnly","showNumbers","showRemoved","showExcluded"].forEach(id=>$(id).addEventListener("change",()=>{updateMode();draw();}));
+  $("imageSelect").addEventListener("change",e=>selectImage(Number(e.target.value)));$("zoomIn").addEventListener("click",()=>zoom(1.35));$("zoomOut").addEventListener("click",()=>zoom(1/1.35));$("fit").addEventListener("click",fit);$("actual").addEventListener("click",()=>zoom(1/scale));
+  function undo() {const last=history.pop();if(!last)return;last.forEach(item=>states[item.i]=item.points);changed("已撤销上一步操作。");}
+  $("undo").addEventListener("click",undo);
+  $("resetImage").addEventListener("click",()=>{if(!confirm("恢复 "+images[current].name+" 的原始自动结果？本图的手动修改将被重置，可使用“撤销”恢复。"))return;checkpoint([current]);states[current]=clone(baseline[current]);changed("本图已恢复原始自动结果。");});
+  $("resetAll").addEventListener("click",()=>{if(!confirm("恢复全部图片的原始自动结果？所有手动修改将被重置，可使用“撤销”恢复。"))return;checkpoint(images.map((_,i)=>i));states=clone(baseline);changed("全部图片已恢复原始自动结果。");});
+  document.addEventListener("keydown",e=>{
+    if(e.defaultPrevented||["INPUT","SELECT","TEXTAREA"].includes(e.target.tagName)||e.target.isContentEditable||e.target.closest?.('[contenteditable="true"],[role="textbox"]'))return;
+    if(e.isComposing||e.keyCode===229)return;
+    if(e.code==="Space"&&e.target===canvas){e.preventDefault();spaceHeld=true;}
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="z"&&!e.shiftKey){e.preventDefault();undo();return;}
+    if(e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||e.repeat||!image||mode!=="confirm"||$("originalOnly").checked||drag||touchPan)return;
+    if(["BUTTON","A","SUMMARY"].includes(e.target.tagName)&&e.target!==$("nextReview"))return;
+    if((e.key==="1"||e.key==="2")&&focusedReviewId!==null){e.preventDefault();keyboardReviewDecision(e.key==="1");}
+    else if(e.key==="Enter"){e.preventDefault();nextReview();}
+  });
+  document.addEventListener("keyup",e=>{if(e.code==="Space")spaceHeld=false;});window.addEventListener("blur",()=>{spaceHeld=false;drag=null;touchPan=false;touchPoints.clear();touchMulti=false;canvas.classList.remove("dragging");});
+  function download(name,contents,type) {const blob=new Blob([contents],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);message("已导出 "+name+"。文件保存在浏览器下载目录。");}
+  $("exportJson").addEventListener("click",()=>{const output={schemaVersion:1,sourceVersion:version,exportedAt:new Date().toISOString(),method:DATA.method,coordinateSystem:"original-image-pixels",reviewPointsIncludedInCount:true,images:images.map((im,i)=>({...im,automaticCount:counts(i).auto,count:counts(i).current,pendingReviewCount:counts(i).review,manualAddedCount:counts(i).added,removedCount:counts(i).removed,points:clone(states[i]),excluded:im.excluded||[]}))};download("particle-counts-corrected.json",JSON.stringify(output,null,2),"application/json;charset=utf-8");});
+  const csvCell=value=>'"'+String(value).replace(/"/g,'""')+'"';
+  $("exportCsv").addEventListener("click",()=>{const keys=["auto","current","review","excluded","added","removed"],totals=keys.map(()=>0);const rows=[["图片","原始自动数","当前计数","待复核（已计入）","干扰候选（未计入）","手动新增（计入）","已删除"]];images.forEach((im,i)=>{const c=counts(i);rows.push([im.name,...keys.map((k,j)=>{totals[j]+=c[k];return c[k];})]);});rows.push(["合计",...totals]);download("particle-counts-summary.csv","\uFEFF"+rows.map(row=>row.map(csvCell).join(",")).join("\r\n"),"text/csv;charset=utf-8");});
+  images.forEach((im,i)=>{const option=document.createElement("option");option.value=String(i);option.textContent=im.name;$("imageSelect").appendChild(option);});$("method").textContent="算法："+(DATA.method||"未提供说明");
+  new ResizeObserver(resize).observe(box);window.addEventListener("resize",resize);
+  if(images.length){resize();selectImage(0);}else{$("loadError").textContent="未找到可核对的图片数据。";$("loadError").style.display="grid";document.querySelectorAll("button").forEach(b=>b.disabled=true);}
+})();
+</script>
+</body>
+</html>

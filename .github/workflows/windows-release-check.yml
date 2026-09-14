@@ -1,0 +1,30 @@
+name: Check Windows release package
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published release tag to verify
+        required: true
+        default: v1.0.0
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out verification code and published checksums
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Test verification helpers without installing packages
+        run: python -X utf8 -m unittest scripts.test_runtime -v
+      - name: Verify and run the published Windows ZIP
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        shell: pwsh
+        run: python -X utf8 scripts/verify_windows_release.py --tag "$env:RELEASE_TAG"
