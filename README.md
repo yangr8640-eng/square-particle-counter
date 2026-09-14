@@ -46,7 +46,7 @@ v4 使用局部像素与二维空间特征，以及 ExtraTrees 分类器。相�
 
 - Apple Silicon 包已实际运行上传、推理、复核和下载流程。
 - Intel Mac 包已通过 Rosetta 实际运行；未在 Intel 实机测试。
-- Windows 包已完成架构、依赖和完整性检查；Windows 运行验证记录见 [Actions](https://github.com/yangr8640-eng/square-particle-counter/actions/workflows/windows-release-check.yml)。
+- Windows 下载包已在 GitHub 的 Windows 运行环境中通过实际模型加载、合成图片推理、上传与离线结果导出检查，见 [通过的验证记录](https://github.com/yangr8640-eng/square-particle-counter/actions/runs/34810490946)。这项检查验证程序运行，不评价真实显微图片的准确率。
 
 Mac 分发包尚未进行 Apple 开发者签名或公证。首次运行若被系统拦截，请先确认文件来源，再使用系统提供的确认入口。
 
