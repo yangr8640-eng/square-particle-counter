@@ -98,7 +98,10 @@ def extract_safely(archive, destination):
         require(sum(entry.file_size for entry in entries) <= MAX_UNPACKED_BYTES, 'Unpacked archive exceeds size limit')
         seen = set()
         for entry in entries:
-            relative = safe_relative(entry.filename)
+            # ZipInfo normalizes backslashes on Windows and truncates NULs.
+            # Validate the original archive spelling before any normalization.
+            require(entry.filename == entry.orig_filename, 'Archive filename was normalized or truncated')
+            relative = safe_relative(entry.orig_filename)
             key = str(relative).casefold()
             require(key not in seen, 'Duplicate or case-colliding Windows archive path')
             seen.add(key)

@@ -72,7 +72,11 @@ class ReleaseVerifierTests(unittest.TestCase):
                 archive = self.root / f'bad-{index}.zip'
                 with zipfile.ZipFile(archive, 'w') as zipped:
                     zipped.writestr('good/first', 'must not be extracted yet')
-                    zipped.writestr(name, 'bad')
+                    # Assign after construction so Windows does not normalize
+                    # this intentionally malformed fixture before writing it.
+                    bad_entry = zipfile.ZipInfo()
+                    bad_entry.filename = bad_entry.orig_filename = name
+                    zipped.writestr(bad_entry, 'bad')
                 destination = self.root / f'extracted-{index}'
                 with self.assertRaises(ValueError):
                     verify.extract_safely(archive, destination)
