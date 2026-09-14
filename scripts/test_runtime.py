@@ -124,6 +124,13 @@ class ReleaseVerifierTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 verify.local_link('http://127.0.0.1:1234/', link)
 
+    def test_offline_review_payload_survives_windows_and_unix_newlines(self):
+        data = {'images': [{'name': 'synthetic.png', 'src': 'images/synthetic.png'}]}
+        for newline in ['\n', '\r\n']:
+            with self.subTest(newline=repr(newline)):
+                html = '<script>' + newline + 'const DATA = ' + json.dumps(data) + ';' + newline + '</script>'
+                self.assertEqual(verify.embedded_review_data(html), data)
+
 
 if __name__ == '__main__':
     unittest.main()

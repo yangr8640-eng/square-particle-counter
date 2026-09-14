@@ -169,6 +169,12 @@ def png_size(payload):
     return struct.unpack('>II', payload[16:24])
 
 
+def embedded_review_data(review):
+    match = re.search(r'const DATA = (.*?);\r?\n', review)
+    require(match is not None, 'Offline review JSON is missing')
+    return json.loads(match.group(1))
+
+
 SCORE_PROBE = r'''
 import json, sys
 from pathlib import Path
@@ -305,9 +311,7 @@ def verify_http(base, png):
         offline_data = json.loads(zipped.read('detections.json'))
         require(offline_data['images'][0] == record, 'Offline/full JSON records differ')
         review = zipped.read('review.html').decode('utf-8')
-        match = re.search(r'const DATA = (.*?);\n', review)
-        require(match is not None, 'Offline review JSON is missing')
-        embedded = json.loads(match.group(1))
+        embedded = embedded_review_data(review)
         require(embedded['images'][0]['src'] == source, 'Offline review uses a different image source')
         require(not urlsplit(source).scheme and not source.startswith('/'), 'Offline review depends on an external URL')
         require(not any(name.startswith(('program/', 'runtime/')) for name in names), 'Result ZIP contains application files')
