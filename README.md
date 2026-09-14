@@ -2,6 +2,16 @@
 
 在自己的电脑上批量处理显微颗粒图片，查看标注、逐点复核，并导出计数结果。程序使用 v4 本地模型，界面在浏览器打开，图片在本机处理。
 
+## 计数前后对比
+
+同一张图片 `0-10-1.jpg` 的原图与 v4 自动标注结果：
+
+| 计数前：原图 | 计数后：自动标注 |
+|---|---|
+| ![计数前的原始显微图片](docs/images/before-counting.jpg) | ![v4计数后标注图，共438个候选，其中98个待复核](docs/images/after-counting.jpg) |
+
+本例输出 **438 个候选，其中 98 个待复核**，另自动排除 40 个候选。绿色和橙色标记均已计入计数，橙色表示待复核。展示图依据实际输出坐标绘制，并加粗标记以便查看。该图未参与模型训练，示例结果尚未经人工复核。
+
 ## 下载免安装程序
 
 请从 **[Releases 下载页](https://github.com/yangr8640-eng/square-particle-counter/releases/latest)** 下载对应 ZIP，完整解压后启动。GitHub 的 `Code → Download ZIP` 是源码，不是免安装程序。
@@ -80,6 +90,6 @@ python -X utf8 -m unittest local_app.test_api scripts.test_runtime
 
 ## 内容与反馈
 
-仓库提供应用源码、推理算法、运行模型和合成测试；运行环境随 Releases 的程序包提供。训练图片和人工标注数据不在此仓库中。
+仓库提供应用源码、推理算法、运行模型、效果示例和合成测试；运行环境随 Releases 的程序包提供。训练图片和人工标注数据不在此仓库中。
 
 遇到问题可[提交 Issue](https://github.com/yangr8640-eng/square-particle-counter/issues)，注明系统、程序版本和错误信息。第三方组件许可说明见 [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt)，完整运行环境保留了各组件的许可文件。
